@@ -1,58 +1,64 @@
+
 [bar/mybar]
 
 width = 100%
-height = 25
+height = 23
 
-background = #2b3a3f
-radius = 4.0
-border-size = 3
-border-color = #000000000
+background = #aa25111c
+
+# The aa stands for the amount of transparency.
+# FF is full opaque or not transparent.
+# 00 is fully transparent or no coloring at all.
+
+# radius = 4.0
+# border-size = 3
+# border-color = #000000000
 
 locale = en_US.UTF-8
 
 padding-right = 3
 padding-left = 3
-module-margin-left = 2
-module-margin-right = 2
+module-margin-left = 1
+module-margin-right = 1
 
 font-0 = SFNS Display:style=Regular:size=8;3
-font-1 = MaterialIcons:size=8;3
-font-2 = Termsynu:size=8;3
-font-3 = FontAwesome:size=8;2
-font-4 = DejaVuSans:size=8;1
+font-1 = ikonki:style=Regular:size=10;2
+font-2 = Font Awesome 5 Brands,Font Awesome 5 Brands Regular:style=Regular:size=10;2
+font-3 = Font Awesome 5 Free,Font Awesome 5 Free Solid:style=Solid:size=10;2
+font-4 = Font Awesome 5 Free,Font Awesome 5 Free Regular:style=Regular:size=10;2
+
 
 modules-left = i3 
 modules-center = date
-modules-right = pulseaudio backlight battery wifi powermenu 
+modules-right = pulseaudio backlight battery nm-launcher powermenu 
 
 [module/powermenu]
 type = custom/menu
 
-label-open = "Power"
-label-open-font = 4
+label-open = ""
 label-close = "Back"
-label-close-foreground = ${colors.lime}
-label-separator = " / "
-label-separator-foreground = ${colors.xcolor1}
+label-separator = " | "
 
-; reboot
-menu-0-1 = "Reboot"
-menu-0-1-exec = systemctl reboot
-menu-0-1-foreground = ${colors.salmon}
 ; shutdown
-menu-0-0 = "Shut down"
+menu-0-0 = "Proceed"
 menu-0-0-exec = systemctl poweroff
 menu-0-0-foreground = ${colors.salmon}
 
-[module/wifi]
-type=internal/network
-interface=wlp3s0
-interval = 3.0
-ping-interval = 10
+# [module/wifi]
+# type=internal/network
+# interface=wlp3s0
+# interval = 3.0
+# ping-interval = 10
 
-format-connected = <label-connected>
-label-connected = Wifi: %essid%
-label-disconnected = Wifi: Not Connected
+# format-connected = <label-connected>
+# label-connected = %essid%
+# label-disconnected = Not Connected
+# click-left = nm-connection-editor
+
+[module/nm-launcher]
+type = custom/text
+content = 
+click-left = nm-connection-editor
 
 [module/date]
 type = internal/date
@@ -63,30 +69,57 @@ date = %H:%M:%S
 type = internal/i3
 pin-workspaces = true
 
-[module/battery]
+ws-icon-0 = 0;  
+ws-icon-1 = 1;  
+ws-icon-2 = 2;  
+ws-icon-3 = 3;  
+ws-icon-4 = 4;  
+ws-icon-5 = 5;  
+ws-icon-6 = 6; 6
+ws-icon-7 = 7; 7
+ws-icon-8 = 8; 8
+ws-icon-9 = 9; 9
+
+label-focused = %icon%
+label-unfocused = %icon%
+label-visible = %icon%
+label-urgent = %icon%
+
+[module/battery] 
 type = internal/battery
 full-at = 98
 time-format = %H:%M
 
-label-charging = Charging: %percentage%% 
-;(%time%)
-label-discharging = Battery: %percentage%%
-label-full = Battery: full
+label-charging =  %percentage%%
+label-discharging = %percentage%%
+label-full = 
 
 format-charging = <label-charging>
-format-discharging = <label-discharging>
 format-full = <label-full>
+format-discharging = <ramp-capacity> <label-discharging>
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
 
 [module/pulseaudio]
 type = internal/pulseaudio
-use-ui-max = true
+use-ui-max = false
 interval = 5
-format-volume = <label-volume>
-label-volume = Volume: %percentage%%
-label-muted = Volume: Muted
 
+format-volume = <ramp-volume> <label-volume>
+
+label-volume = %percentage%%
+label-muted =  0%
+
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+ 
 [module/backlight]
 type = internal/backlight
 card = intel_backlight
 format = <label>
-label = Brightness: %percentage%%
+label =  %percentage%%

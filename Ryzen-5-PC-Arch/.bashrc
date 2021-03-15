@@ -2,7 +2,7 @@
 # ~/.bashrc
 #
 
-export TERM="xterm-256color"   
+export TERM="xterm-256color"
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
@@ -19,6 +19,7 @@ alias merge='xrdb -merge ~/.Xresources'
 
 alias rr='curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/master/roll.sh | bash'
 
-colorscript exec pacman 
+colorscript exec pacman
 
-neofetch 
+neofetch
+fish

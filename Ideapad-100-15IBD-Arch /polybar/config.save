@@ -1,0 +1,238 @@
+[colors]
+background = #dcdcdc
+background-alt = #828282
+foreground = #000000	
+foreground-alt = #000000
+primary = #1789df
+secondary = #000000
+alert = #bd2c40
+
+[bar/example]
+width = 100%
+height = 19
+radius = 0.0
+fixed-center = true
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 3
+line-color = #00ddFF
+
+border-size = 0
+border-color = #00000000
+
+padding-left = 0
+padding-right = 0
+
+module-margin-left = 0
+module-margin-right = 0
+
+font-0 = fixed:pixelsize=10;1
+font-1 = unifont:fontformat=truetype:pixelsize=9:antialias=false;1
+font-2 = siji:pixelsize=10;1
+font-3 = Font Awesome 5 Free:pixselsize=9;1
+font-4 = Font Awesome 5 Free Solid:pixelsize=9;1
+font-5 = Font Awesome 5 Brands:piselsize=9;1
+
+
+modules-left = i3
+modules-center =
+modules-right = pulseaudio xbacklight cpu memory temperature battery wlan date powermenu
+
+tray-position = none
+tray-padding =
+tray-background =
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+
+label-mode-padding = 2
+label-mode-foreground = #000
+label-mode-background = ${colors.primary}
+
+; focused = Active workspace on focused monitor
+label-focused = %index%
+label-focused-background = ${colors.background-alt}
+label-focused-underline= ${colors.primary}
+label-focused-padding = 2
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %index%
+label-unfocused-padding = 2
+
+; visible = Active workspace on unfocused monitor
+label-visible = %index%
+label-visible-background = ${self.label-focused-background}
+label-visible-underline = ${self.label-focused-underline}
+label-visible-padding = ${self.label-focused-padding}
+
+; urgent = Workspace with urgency hint set
+label-urgent = %index%
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 2
+
+[module/xbacklight]
+type = internal/xbacklight
+
+format-padding = 1
+format-underline = #bf00ff
+format = <label>
+label =  %percentage%%
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+format-padding = 1
+format-prefix = ""
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = #FF0000
+label = %percentage:2%%
+
+[module/memory]
+type = internal/memory
+interval = 2
+format-padding = 1
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = #4bffdc
+label = %percentage_used%%
+
+[module/wlan]
+type = internal/network
+interface = wlp3s0
+interval = 3.0
+
+format-connected-padding = 1
+format-connected = <ramp-signal> <label-connected>
+format-connected-underline = #9f78e1
+label-connected = %local_ip%
+
+ramp-signal-0 = 
+ramp-signal-1 = 
+ramp-signal-2 = 
+ramp-signal-3 = 
+ramp-signal-4 = 
+ramp-signal-foreground = ${colors.foreground-alt}
+
+[module/date]
+type = internal/date
+interval = 5
+
+format-underline = #00ddFF
+format-padding = 1
+time = %H:%M
+time-alt = %H:%M:%S
+date-alt = "%Y-%m-%d"
+label = %date% %time%
+
+[module/pulseaudio]
+type = internal/pulseaudio
+use-ui-max = false
+interval = 5
+
+format-volume-padding = 1
+format-muted-padding = 1
+format-volume-underline = #0026ff
+format-muted-underline = #0026ff
+format-volume = <ramp-volume> <label-volume>
+
+label-volume = %percentage%%
+label-muted = 
+
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+ 
+[module/battery]
+type = internal/battery
+full-at = 98
+
+label-charging =  %percentage%%
+label-discharging = %percentage%%
+label-full = 
+
+format-charging-padding = 1
+format-charging-underline = #ffb52a
+format-discharging-padding = 1
+format-discharging-underline = ${self.format-charging-underline}
+format-full-padding = 1
+format-full-underline = ${self.format-charging-underline}
+
+format-charging = <label-charging>
+format-full = <label-full>
+format-discharging = <ramp-capacity> <label-discharging>
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+[module/temperature]
+type = internal/temperature
+thermal-zone = 0
+warn-temperature = 60
+
+format-padding = 1
+format = <ramp> <label>
+format-underline = #f50a4d
+format-warn = <ramp> <label-warn>
+format-warn-underline = ${self.format-underline}
+
+label = %temperature-c%
+label-warn = %temperature-c%
+label-warn-foreground = ${colors.secondary}
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-foreground = ${colors.foreground-alt}
+
+[module/powermenu]
+type = custom/menu
+
+expand-right = true
+
+format-spacing = 1
+format-underline = #00ff37
+format-padding = 2
+label-open =  
+label-open-foreground = ${colors.secondary}
+label-close = Cancel
+label-close-foreground = ${colors.secondary}
+label-separator = |
+label-separator-foreground = ${colors.foreground-alt}
+
+menu-0-0 = Reboot
+menu-0-0-exec = menu-open-1
+menu-0-1 = Power off
+menu-0-1-exec = menu-open-2
+
+menu-1-0 = Cancel
+menu-1-0-exec = menu-open-0
+menu-1-1 = Reboot
+menu-1-1-exec = sudo reboot
+
+menu-2-0 = Power off
+menu-2-0-exec = sudo poweroff
+menu-2-1 = Cancel
+menu-2-1-exec = menu-open-0
+
+[settings]
+screenchange-reload = true
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+;pseudo-transparency = false
+
+[global/wm]
+margin-top = 5
+margin-bottom = 5

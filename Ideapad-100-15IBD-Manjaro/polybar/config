@@ -1,3 +1,5 @@
+# depencies: ttf-font-awesome xorg-fonts-misc nerd-fonts-ubuntu-mono (AUR) xorg-xbacklight pulseaudio networkmanager
+
 [colors]
 background = #99222D31
 background-alt = #B3131a1c
@@ -204,10 +206,10 @@ format-foreground = ${colors.foreground-alt}
 format-padding = 2
 
 label-open =  
-label-close = Cancel
+label-close = back
 label-separator = "  |  "
 
-menu-0-0 = Power off
+menu-0-0 = power off
 menu-0-0-exec = poweroff
 
 [module/arrow1]

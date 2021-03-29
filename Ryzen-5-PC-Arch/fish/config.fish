@@ -1,6 +1,0 @@
-alias ls='exa -al --color=always --group-directories-first'
-alias grep='grep --color=auto'
-alias egrep='egrep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias merge='xrdb -merge ~/.Xresources'
-alias rr='exit | curl -s -L https://raw.githubusercontent.com/keroserene/rickrollrc/master/roll.sh | bash'

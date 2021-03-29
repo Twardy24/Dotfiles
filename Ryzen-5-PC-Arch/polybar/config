@@ -1,0 +1,252 @@
+# Depencies list:
+# -ttf-font-awesome
+# -nerd-fonts-ubuntu-mono (AUR) 
+# -perl-checkupdates-aur (AUR)
+# -checkupdates-aur (AUR) 
+# -lm_sensors
+
+###########################################################
+######################Appearance###########################
+###########################################################
+
+[colors]
+background = #22252c
+background-alt = #3e3e3e
+foreground = #dfdfdf
+foreground-alt = #dfdfdf
+primary = #b5bd6a
+
+[bar/example]
+width = 100%
+height = 26
+radius = 0.0
+fixed-center = true
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 3
+line-color = #00000000
+
+border-size = 0
+border-color = #00000000
+
+padding-left = 0
+padding-right = 0
+
+module-margin-left = 0
+module-margin-right = 0
+
+###########################################################
+########################Settings###########################
+###########################################################
+
+separator = "|"
+
+font-0 = "UbuntuMono Nerd Font:size=13;2"
+font-1 = "Font Awesome 5 Free:style=Regular:pixelsize=3;1"
+font-2 = "Font Awesome 5 Free:style=Solid:pixelsize=3;1"
+font-3 = "Font Awesome 5 Brands:pixelsize=3;1"
+
+modules-left = i3
+modules-center = xwindow
+modules-right = pulseaudio filesystem memory cpu temperature eth kernel pacman-updates date powermenu 
+
+tray-position = left
+tray-padding = 2
+tray-background = ${colors.background}
+
+###########################################################
+########################Modules############################
+###########################################################
+
+[module/xwindow]
+type = internal/xwindow
+
+label = %title%
+label-padding = 1
+
+###########################################################
+
+[module/filesystem]
+type = internal/fs
+
+interval = 2500
+mount-0 = /
+
+label-mounted = Disk: %percentage_used%%
+label-mounted-padding=1
+label-mounted-foreground = #80a2be
+
+###########################################################
+
+[module/i3]
+type = internal/i3
+
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+
+# label mode
+label-mode-padding = 1
+label-mode-foreground = ${colors.foreground}
+label-mode-background = ${colors.primary}
+
+# label focused = active workspace on focused monitor
+label-focused = %index%
+label-focused-background = ${colors.background-alt}
+label-focused-underline= ${colors.primary}
+label-focused-padding = 1
+
+# label unfocused = inactive workspace on any monitor
+label-unfocused = %index%
+label-unfocused-padding = 1
+label-unfocused-underline = #cc6566
+label-unfocused-background = ${colors.background-alt}
+
+# label visible = active workspace on unfocused monitor
+label-visible = %index%
+label-visible-background = ${self.label-focused-background}
+label-visible-underline = ${self.label-focused-underline}
+label-visible-padding = ${self.label-focused-padding}
+
+# label urgent = workspace with urgency hint set
+label-urgent = %index%
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 1
+
+# separator in between workspaces
+label-separator = |
+label-separator-background = ${colors.background}
+
+###########################################################
+
+[module/cpu]
+type = internal/cpu
+
+interval = 2
+
+format-foreground = #b094bd
+format-padding = 1
+label = CPU:%percentage:2%%
+
+###########################################################
+
+[module/memory]
+type = internal/memory
+
+interval = 2s
+
+format-padding = 1
+format-foreground = #cc6566
+label = RAM: %percentage_used%%
+
+###########################################################
+
+[module/temperature]
+type = internal/temperature
+
+format-foreground = #f0c674
+format-padding = 1
+format = <label>
+label = Temp: %temperature-c%
+
+interval = 2
+hwmon-path = /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon1/temp2_input
+base-temperature = 20
+warn-temperature = 90
+
+###########################################################
+
+[module/eth]
+type = internal/network
+
+interface = enp34s0
+interval = 3.0
+
+format-connected-foreground = #b9ca46
+format-connected-padding = 1
+label-connected = IP: %local_ip%
+
+###########################################################
+
+[module/date]
+type = internal/date
+
+interval = 1
+
+format-padding = 1
+format-foreground = #8cbeb5
+label = Date: %date% %time% 
+
+date = "%d.%m"
+date-alt = "%d.%m.%Y"
+
+time = "%H:%M"
+time-alt = "%H:%M:%S"
+
+###########################################################
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+click-right = exec pavucontrol
+
+format-volume = <label-volume>
+format-muted = <label-muted>
+
+label-volume = Volume: %percentage%%
+label-volume-padding=1
+label-volume-foreground = #b5bd6a
+
+label-muted = Volume: muted
+label-muted-padding=1
+label-muted-foreground = #b5bd6a
+
+###########################################################
+
+[module/pacman-updates]
+type = custom/script
+
+exec = checkupdates | wc -l
+interval = 600
+
+format-padding = 1
+format-foreground = #b094bd
+label = Updates: %output%
+
+###########################################################
+
+[module/kernel]
+type = custom/script
+
+exec = uname -r
+interval = 600
+
+format-padding = 1
+format-foreground = #f0c674
+label = Kernel: %output%
+
+###########################################################
+
+[module/powermenu]
+type = custom/menu
+
+format-spacing = 1
+format-padding = 1
+format-foreground = #d64d54
+
+label-open = Power Menu
+label-close = Cancel
+label-separator = |
+
+menu-0-0 = Reboot
+menu-0-0-exec = sudo reboot
+
+menu-0-1 = Power off
+menu-0-1-exec = sudo poweroff
+
+menu-0-2 = Log out 
+menu-0-2-exec = "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+###########################################################

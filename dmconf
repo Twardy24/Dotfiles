@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+if [[ -z ${DMEDITOR} ]]; then
+  TERMINAL="${TERMINAL:-alacritty}"
+  DMTERM="${TERMINAL} -e"
+  DMEDITOR="alacritty -e nano"
+fi
+
+# An array of options to choose.
+declare -A options
+options[I3]="$HOME/.config/i3/config"
+options[Polybar]="$HOME/.config/polybar/config"
+options[Alacritty]="$HOME/.config/alacritty/alacritty.yml"
+options[Bash]="$HOME/.bashrc"
+options[Fish]="$HOME/.config/fish/config.fish"
+options[Nano]="$HOME/.nanorc"
+options[Vim]="$HOME/.vimrc"
+options[Picom]="$HOME/.config/picom/picom.conf"
+options[Xresources]="$HOME/.Xresources"
+
+# Clean options array making sure that the files exist
+declare -A options_clean
+  for i in "${!options[@]}"; do
+    [[ -f ${options["${i}"]} ]] && options_clean["${i}"]=${options["${i}"]}
+  done
+
+# Piping the above array (cleaned) into dmenu.
+# We use "printf '%s\n'" to format the array one item to a line.
+choice=$(printf '%s\n' "${!options_clean[@]}" | sort | dmenu -i -p 'Edit config:' -nb '#22252c' -sf '#dfdfdf' -sb '#cc6566' -nf '#dfdfdf')
+
+
+# What to do when/if we choose a file to edit.
+if [ "$choice" ]; then
+  cfg=$(echo "${options_clean["${choice}"]}")
+  $DMEDITOR "$cfg"
+
+# What to do if we just escape without choosing anything.
+else
+    echo "Program terminated." && exit 0
+fi

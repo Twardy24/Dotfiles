@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+#Script created by Derek Taylor (https://gitlab.com/dwt1/dotfiles)
 
 if [[ -z ${DMEDITOR} ]]; then
   TERMINAL="${TERMINAL:-alacritty}"

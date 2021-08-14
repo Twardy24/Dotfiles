@@ -14,14 +14,14 @@ Devices and configurations I'm using:
     - Browser - Firefox  
        
 - PC with Ryzen 5 2600, 16GB RAM, RX570 8GB:
-        - WM - I3 gaps
-        - Shell - BASH (with FISH starting in bashrc)
-        - Terminal - Alacritty
-        - Compositor - picom-jonaburg
-        - Bar - Polybar
-        - GTK theme - Flat-Remix-GTK-Green-Dark
-        - Icon theme - Flat-Remix-Green-Dark
-        - File manager - Pcmanfm
-        - Browser - Firefox 
+    - WM - I3 gaps
+    - Shell - BASH (with FISH starting in bashrc)
+    - Terminal - Alacritty
+    - Compositor - picom-jonaburg
+    - Bar - Polybar
+    - GTK theme - Flat-Remix-GTK-Green-Dark
+    - Icon theme - Flat-Remix-Green-Dark
+    - File manager - Pcmanfm
+    - Browser - Firefox 
     
 All depencies are listed in config files.

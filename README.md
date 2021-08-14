@@ -22,6 +22,6 @@ Devices and configurations I'm using:
         - GTK theme - Flat-Remix-GTK-Green-Dark
         - Icon theme - Flat-Remix-Green-Dark
         - File manager - Pcmanfm
-        - Browser - Firefox
+        - Browser - Firefox 
     
 All depencies are listed in config files.

@@ -1,0 +1,228 @@
+###########################################################
+##Depencies################################################
+###########################################################
+
+# i3gaps
+# i3lock
+# alacritty
+# polybar (AUR)
+# picom-jonaburg-git (AUR)
+# nitrogen
+# rofi
+# lxsession
+# xorg-xbacklight
+# xorg-xinput
+# lm_sensors
+# scrot 
+
+# firefox (keybindings)
+# pcmanfm (keybindings)
+# spotify (keybindings)
+# discord (keybindings)
+# calcurse (keybindings)
+
+##########################################################
+##WM keybindings##########################################
+##########################################################
+
+# modifier key
+set $mod Mod4
+floating_modifier $mod
+
+# basic actions
+bindsym $mod+Shift+q kill
+bindsym $mod+Shift+r restart
+bindsym $mod+r mode "resize"
+bindsym $mod+f fullscreen toggle
+
+# switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# change focus
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# floating mode
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+
+# stacking/tabbed/toggle split
+bindsym $mod+q layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# split horizontal/vertical
+bindsym $mod+h split h
+bindsym $mod+v split v
+
+# focus parent/child container
+bindsym $mod+a focus parent
+bindsym $mod+s focus child
+
+# move workspace to different monitor
+bindsym $mod+comma move workspace to output left
+bindsym $mod+period move workspace to output right
+
+##########################################################
+##App bindings############################################
+##########################################################
+
+bindsym $mod+Return exec alacritty
+bindsym $mod+g exec alacritty -e calcurse
+
+bindsym $mod+n exec pcmanfm
+bindsym $mod+Shift+n exec sudo pcmanfm
+
+bindsym $mod+m exec firefox
+bindsym $mod+b exec spotify
+bindsym $mod+x exec discord
+
+bindsym $mod+d exec rofi -show drun
+bindsym $mod+Shift+d exec rofi -show run
+
+bindsym Print exec flameshot screen -c --number 0 -p /home/jan/Obrazy/screeny/
+bindsym Shift+Print exec flameshot screen -c --number 1 -p /home/jan/Obrazy/screeny/
+
+bindsym $mod+i exec /home/jan/.scripts/lock.sh
+bindsym $mod+Shift+i exec xset dpms force off
+
+##########################################################
+##Resize mode#############################################
+##########################################################
+
+mode "resize" 
+{
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+		
+		bindsym Shift+Left resize shrink width 5 px or 5 ppt
+        bindsym Shift+Down resize grow height 5 px or 5 ppt
+        bindsym Shift+Up resize shrink height 5 px or 5 ppt
+        bindsym Shift+Right resize grow width 5 px or 5 ppt
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+##########################################################
+##Workspace names#########################################
+##########################################################
+
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+##########################################################
+##Startup programs########################################
+##########################################################
+
+exec lxsession
+exec setxkbmap pl
+exec_always sudo msi-rgb FFFFFFFF 00000000 FFFFFFFF --duration 0
+
+exec_always "killall picom; sleep 1; picom --experimental-backends --config=/home/jan/.config/picom/picom.conf"
+exec_always /home/jan/.screenlayout/monitory.sh && nitrogen --restore
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+
+exec_always xset dpms 0 0 2400
+exec_always xset s 0 2400
+exec xrandr --dpi 150
+exec xrdb -merge ~/.Xresources
+
+##########################################################
+##Gaps and borders########################################
+##########################################################
+
+gaps inner 9
+gaps outer 0
+
+for_window [class="^.*"] border pixel 1, title_format " %title "
+for_window [class="^.*"] move position center
+
+client.focused			#dfdfdf #dfdfdf #dfdfdf #dfdfdf
+client.focused_inactive        #4f4f4f #4f4f4f #4f4f4f #4f4f4f
+client.unfocused	       #4f4f4f #4f4f4f #4f4f4f #4f4f4f
+client.urgent		       #4f4f4f #4f4f4f #4f4f4f #4f4f4f
+
+##########################################################
+##Apps in floating mode###################################
+##########################################################
+
+for_window [class="Pavucontrol"] floating enable
+for_window [class="Pavucontrol"] resize set 1280 720
+
+for_window [class="Blueberry.py"] floating enable
+for_window [class="Blueberry.py"] resize set 1280 720
+
+for_window [class="Microsoft Teams - Preview"] floating enable
+for_window [class="Microsoft Teams - Preview"] resize set 1920 1080
+
+for_window [class="Nitrogen"] floating enable
+for_window [class="Nitrogen"] resize set 1280 800
+
+for_window [class="stacer"] floating enable
+for_window [class="stacer"] resize set 1920 1080
+
+for_window [class="Galculator"] floating enable
+for_window [class="Galculator"] resize set 480 540
+
+for_window [class="VirtualBox Manager"] floating enable
+for_window [class="VirtualBox Manager"] resize set 900 800
+
+##########################################################
+##Assign apps to workspaces###############################
+##########################################################
+
+assign [class="Alacritty"] 1
+assign [class="Spotify"] 2
+assign [class="firefox"] 3
+assign [class="Pcmanfm"] 4
+
+##########################################################
+##Fonts###################################################
+##########################################################
+
+font pango:monospace 8
+
+##########################################################
+##########################################################
+##########################################################

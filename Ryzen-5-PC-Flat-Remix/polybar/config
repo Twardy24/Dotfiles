@@ -1,0 +1,409 @@
+###########################################################
+##Depencies################################################
+###########################################################
+
+# i3gaps
+# polybar (AUR)
+# lm_sensors
+# nerd-fonts-ubuntu-mono (AUR)
+# ttf-font-awesome
+# nerd-fonts-iosevka (AUR)
+
+# pacman-contrib - pacman-updates module
+# checkupdates-aur (AUR) - pacman-updates module
+# perl-checkupdates-aur (AUR) - pacman-updates module
+
+# playerctl - spotify modules
+# zscroll-git (AUR) - spotify modules
+# spotify (AUR) - spotify modules
+
+###########################################################
+##Settings#################################################
+###########################################################
+
+[colors]
+background = #CC2e3440
+foreground = #2e3440
+foreground-alt = #eceff4
+
+red = #bf616a
+orange = #d08770
+yellow = #ebcb8b
+green = #a3be8c
+purple = #b48ead
+
+[bar/example]
+width = 100%
+height = 25
+radius = 0.0
+fixed-center = true
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 2
+line-color = ${colors.foreground}
+
+border-size = 5
+border-color = ${colors.background}
+
+padding-left = 1
+padding-right = 1
+
+module-margin-left = 0
+module-margin-right = 0
+
+###########################################################
+##Tray#####################################################
+###########################################################
+
+tray-position = left
+tray-padding = 0
+tray-background = ${colors.background}
+
+###########################################################
+##Fonts####################################################
+###########################################################
+
+font-0 = "UbuntuMono Nerd Font:size=13;2"
+font-1 = "Font Awesome 5 Free:style=Regular:pixelsize=3;1"
+font-2 = "Font Awesome 5 Free:style=Solid:pixelsize=3;1"
+font-3 = "Font Awesome 5 Brands:pixelsize=3;1"
+font-4 = "Iosevka Nerd Font:style=Medium:size=16;4"
+
+###########################################################
+##Modules##################################################
+###########################################################
+
+modules-left = left-purple i3 right-purple left-green xwindow right-green left-yellow spotify spotify-prev spotify-play-pause spotify-next right-yellow-2
+modules-center = 
+modules-right = left-purple pulseaudio right-purple left-green filesystem right-green left-yellow memory right-yellow left-orange cpu right-orange left-red temperature right-red left-purple eth right-purple left-green kernel right-green left-yellow pacman-updates right-yellow left-orange date right-orange left-red powermenu right-red
+
+###########################################################
+##Modules left#############################################
+###########################################################
+
+[module/i3]
+type = internal/i3
+index-sort = true
+wrapping-scroll = false
+
+format-padding-right = 1
+format = <label-state> <label-mode>
+
+ws-icon-0 = 1;%{B#b48ead}  Terminal %{F-}
+ws-icon-1 = 2;%{B#b48ead}  Music %{F-}
+ws-icon-2 = 3;%{B#b48ead}  Web %{F-}
+ws-icon-3 = 4;%{B#b48ead}  Files %{F-}
+ws-icon-4 = 5;%{B#b48ead} 5 %{F-}
+ws-icon-5 = 6;%{B#b48ead} 6 %{F-}
+ws-icon-6 = 7;%{B#b48ead} 7 %{F-}
+ws-icon-7 = 8;%{B#b48ead} 8 %{F-}
+ws-icon-8 = 9;%{B#b48ead} 9 %{F-}
+ws-icon-9 = 10;%{B#b48ead} 10 %{F-}
+
+label-focused = %icon%
+label-focused-padding = 0
+label-focused-foreground = ${colors.foreground-alt}
+label-focused-underline = ${colors.foreground-alt}
+
+label-unfocused = %icon%
+label-unfocused-padding = 0
+label-unfocused-foreground = ${colors.foreground}
+
+label-visible = %icon%
+label-visible-padding = 0
+label-visible-foreground = ${colors.foreground}
+
+label-separator = "%{T5} %{T-}"
+label-separator-foreground = ${colors.purple}
+label-separator-background = ${colors.background}
+
+###########################################################
+
+[module/xwindow]
+type = internal/xwindow
+
+label = %title%
+label-padding = 1
+label-background = ${colors.green}
+label-foreground = ${colors.foreground}
+
+###########################################################
+
+[module/spotify]
+type = custom/script
+tail = true
+exec = ~/.config/polybar/scripts/scroll_spotify_status.sh
+
+format = <label>
+format-prefix = "  "
+format-foreground = ${colors.foreground}
+format-background = ${colors.yellow}
+
+###########################################################
+
+[module/spotify-prev]
+type = custom/script
+exec = echo "     "
+click-left = playerctl previous spotify
+
+format = <label>
+format-foreground = ${colors.foreground}
+format-background = ${colors.yellow}
+
+###########################################################
+
+[module/spotify-play-pause]
+type = custom/script
+exec = echo "  "
+click-left = playerctl play-pause spotify
+
+format-foreground = ${colors.foreground}
+format-background = ${colors.yellow}
+
+###########################################################
+
+[module/spotify-next]
+type = custom/script
+exec = echo "   "
+click-left = playerctl next spotify
+
+format = <label>
+format-foreground = ${colors.foreground}
+format-background = ${colors.yellow}
+
+###########################################################
+##Modules right############################################
+###########################################################
+
+[module/pulseaudio]
+type = internal/pulseaudio
+click-right = exec pavucontrol
+
+format-volume = <label-volume>
+format-muted = <label-muted>
+
+label-volume =   Volume: %percentage%%
+label-volume-padding = 0
+label-volume-foreground = ${colors.foreground}
+label-volume-background = ${colors.purple}
+
+label-muted = Volume: muted
+label-muted-padding=0
+label-muted-foreground = ${colors.foreground}
+label-muted-background = ${colors.purple}
+
+###########################################################
+
+[module/filesystem]
+type = internal/fs
+interval = 2500
+mount-0 = /
+
+label-mounted =   Disk: %percentage_used%%
+label-mounted-padding=0
+label-mounted-foreground = ${colors.foreground}
+label-mounted-background = ${colors.green}
+
+###########################################################
+
+[module/memory]
+type = internal/memory
+interval = 2s
+label =   RAM: %percentage_used%%
+
+format-padding = 0
+format-foreground = ${colors.foreground}
+format-background = ${colors.yellow}
+
+###########################################################
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+label =   CPU:%percentage:2%%
+
+format-padding = 0
+format-foreground = ${colors.foreground}
+format-background = ${colors.orange}
+
+###########################################################
+
+[module/temperature]
+type = internal/temperature
+interval = 2
+hwmon-path = /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon1/temp2_input
+label =  Temp: %temperature-c%
+
+format = <label>
+format-padding = 0
+format-foreground = ${colors.foreground}
+format-background = ${colors.red}
+
+###########################################################
+
+[module/eth]
+type = internal/network
+interface = enp34s0
+interval = 3.0
+label-connected =   IP: %local_ip%
+
+format-connected-padding = 0
+format-connected-foreground = ${colors.foreground}
+format-connected-background = ${colors.purple}
+
+###########################################################
+
+[module/kernel]
+type = custom/script
+interval = 600
+exec = uname -r
+label =   Kernel: %output%
+
+format-padding = 0
+format-foreground = ${colors.foreground}
+format-background = ${colors.green}
+
+###########################################################
+
+[module/pacman-updates]
+type = custom/script
+interval = 600
+exec = checkupdates | wc -l
+label =   Updates: %output%
+
+format-padding = 0
+format-foreground = ${colors.foreground}
+format-background = ${colors.yellow}
+
+###########################################################
+
+[module/date]
+type = internal/date
+interval = 1
+label =   Date: %date% %time% 
+
+date = "%d.%m"
+date-alt = "%d.%m.%Y"
+time = "%H:%M"
+time-alt = "%H:%M:%S"
+
+format-padding = 0
+format-foreground = ${colors.foreground}
+format-background = ${colors.orange}
+
+###########################################################
+
+[module/powermenu]
+type = custom/menu
+
+label-open =   Power Menu
+label-close = Cancel
+label-separator = |
+
+format-padding = 0
+format-spacing = 1
+
+format-foreground = ${colors.foreground}
+format-background = ${colors.red}
+
+menu-0-0 = Reboot
+menu-0-0-exec = sudo reboot
+
+menu-0-1 = Power off
+menu-0-1-exec = sudo poweroff
+
+menu-0-2 = Sleep
+menu-0-2-exec = sudo pm-suspend
+
+menu-0-3 = Log out 
+menu-0-3-exec = i3-msg exit
+
+###########################################################
+
+[module/right-red]
+type = custom/text 
+content = "%{T5}%{T-}"
+content-foreground = ${colors.red}
+
+###########################################################
+
+[module/left-red]
+type = custom/text 
+content = "%{T5} %{T-}"
+content-foreground = ${colors.red}
+
+###########################################################
+
+[module/right-orange]
+type = custom/text 
+content = "%{T5}%{T-}"
+content-foreground = ${colors.orange}
+
+###########################################################
+
+[module/left-orange]
+type = custom/text 
+content = "%{T5} %{T-}"
+content-foreground = ${colors.orange}
+
+###########################################################
+
+[module/right-yellow]
+type = custom/text 
+content = "%{T5}%{T-}"
+content-foreground = ${colors.yellow}
+
+###########################################################
+
+[module/right-yellow-2]
+type = custom/text
+content = "%{T5} %{T-}"
+content-foreground = ${colors.yellow}
+
+###########################################################
+
+[module/left-yellow]
+type = custom/text 
+content = "%{T5} %{T-}"
+content-foreground = ${colors.yellow}
+
+###########################################################
+
+[module/right-green]
+type = custom/text
+content = "%{T5}%{T-}"
+content-foreground = ${colors.green}
+
+###########################################################
+
+[module/right-green-2]
+type = custom/text
+content = "%{T5} %{T-}"
+content-foreground = ${colors.green}
+
+###########################################################
+
+[module/left-green]
+type = custom/text 
+content = "%{T5} %{T-}"
+content-foreground = ${colors.green}
+
+###########################################################
+
+[module/right-purple]
+type = custom/text
+content = "%{T5}%{T-}"
+content-foreground = ${colors.purple}
+
+###########################################################
+
+[module/left-purple]
+type = custom/text
+content = "%{T5} %{T-}"
+content-foreground = ${colors.purple}
+
+###########################################################
+###########################################################
+###########################################################

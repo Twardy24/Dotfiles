@@ -1,0 +1,572 @@
+###########################################################
+##Depencies################################################
+###########################################################
+
+# i3gaps
+# polybar (AUR)
+# lm_sensors
+
+# ttf-fantasque-sans-mono (AUR)
+# ttf-font-awesome
+# nerd-fonts-ubuntu-mono (AUR)
+# nerd-fonts-iosevka (AUR)
+# noto-fonts-cjk (AUR)
+
+# pacman-contrib - pacman-updates module
+# checkupdates-aur (AUR) - pacman-updates module
+# perl-checkupdates-aur (AUR) - pacman-updates module
+
+# playerctl - spotify modules
+# zscroll-git (AUR) - spotify modules
+# spotify (AUR) - spotify modules
+
+###########################################################
+##Settings#################################################
+###########################################################
+
+[colors]
+background = #CC212129
+primary = #e5eaf0
+secondary = #e5eaf0
+
+modules = #fba08b
+modules-xwindow = #a69ca4
+modules-date = #fefdfb
+modules-wlan = #fba08b
+modules-pulseaudio = #a0e9e2
+modules-xbacklight = #45d1b4
+modules-battery = #a69ca4
+modules-temperature = #fefdfb
+modules-cpu = #fba08b
+modules-memory = #a0e9e2
+modules-powermenu = #45d1b4
+
+modules-spotify = #88c0d0
+modules-pacman-updates = #88c0d0
+
+[bar/example]
+width = 100%
+height = 23
+radius = 0.0
+fixed-center = false
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 1
+line-color = ${colors.modules}
+
+border-left-size = 1
+border-right-size = 1 
+border-top-size = 4
+border-bottom-size = 4
+border-color = ${colors.background}
+
+padding-left = 1
+padding-right = 1
+
+module-margin-left = 1
+module-margin-right = 0
+
+###########################################################
+##Tray#####################################################
+###########################################################
+
+tray-position = left
+tray-padding = 4
+tray-background = ${colors.background}
+
+###########################################################
+##Fonts####################################################
+###########################################################
+
+font-0 = "Fantasque Sans Mono:pixelsize=11:antialias=true;1"
+font-1 = "Font Awesome 5 Free:pixselsize=9;1"
+font-2 = "Font Awesome 5 Free Solid:pixelsize=9;1"
+font-3 = "Font Awesome 5 Brands:pixelsize=9;1"
+font-4 = "UbuntuMono Nerd Font:size=13.5:antialias=true;4"
+font-5 = "Iosevka Nerd Font:style=Medium:size=12;3"
+font-6 = Noto Sans CJK JP:size=10:antialias=true;0
+
+###########################################################
+##Modules##################################################
+###########################################################
+
+modules-left = i3 xwindow
+modules-center = 
+modules-right = date wlan pulseaudio xbacklight battery temperature cpu memory powermenu
+
+###########################################################
+##Modules left#############################################
+###########################################################
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>  
+index-sort = true
+wrapping-scroll = false
+
+#ws-icon-0 = 1;%{T3}%{T-}
+#ws-icon-1 = 2;%{T3}%{T-}
+#ws-icon-2 = 3;%{T4}%{T-}
+#ws-icon-3 = 4;%{T4}%{T-}
+#ws-icon-4 = 5;%{T4}%{T-}
+#ws-icon-5 = 6;6
+#ws-icon-6 = 7;7
+#ws-icon-7 = 8;8 
+#ws-icon-8 = 9;9 
+#ws-icon-9 = 10;10
+
+ws-icon-0 = 1;一
+ws-icon-1 = 2;二
+ws-icon-2 = 3;三
+ws-icon-3 = 4;四
+ws-icon-4 = 5;五
+ws-icon-5 = 6;六
+ws-icon-6 = 7;七
+ws-icon-7 = 8;八
+ws-icon-8 = 9;九
+ws-icon-9 = 10;十
+
+label-mode-padding = 1
+label-mode-foreground = ${colors.modules}
+label-mode-background = ${colors.background}
+
+label-focused = %icon%
+label-focused-padding = 1
+label-focused-background = ${colors.background}
+label-focused-foreground= ${colors.modules}
+label-focused-underline = ${colors.secondary}
+
+label-unfocused = %icon%
+label-unfocused-padding = 1
+label-unfocused-background = ${colors.background}
+label-unfocused-foreground = ${colors.secondary}
+label-unfocused-underline = ${colors.modules}
+
+# label-urgent = %icon%
+# label-urgent-padding = 1
+# label-urgent-background = ${colors.background}
+# label-urgent-foreground = ${colors.secondary}
+
+label-separator = "|"
+label-separator-padding = 0
+label-separator-background = ${colors.background}
+label-separator-foreground = ${colors.secondary}
+
+###########################################################
+
+[module/xwindow]
+type = internal/xwindow
+label = "%title:0:30:%"
+
+format-padding = 1
+format-background = ${colors.background}
+format-foreground = ${colors.secondary}
+format-underline = ${colors.modules-xwindow}
+
+###########################################################
+##Modules right############################################
+###########################################################
+
+[module/date]
+type = internal/date
+interval = 1
+label = "%{T3}%{T-}%date% %time%"
+
+time = "%H:%M:%S"
+time-alt = "%H:%M:%S"
+date = ""
+date-alt = " %d.%m.%Y"
+
+format-padding = 1
+format-underline = ${colors.modules-date}
+format-foreground = ${colors.primary}
+
+###########################################################
+
+[module/wlan]
+type = internal/network
+interface = wlp3s0
+interval = 3.0
+label-connected = "%local_ip%"
+
+format-connected-padding = 1
+format-connected = <ramp-signal> <label-connected>
+format-connected-underline = ${colors.modules-wlan}
+format-connected-foreground = ${colors.primary}
+
+format-disconnected = "%{T3} %{T-} disconnected"
+format-disconnected-padding = 1
+format-disconnected-underline = ${colors.modules-wlan}
+format-disconnected-foreground = ${colors.primary}
+
+ramp-signal-0 = "%{T3}%{T-}"
+ramp-signal-1 = "%{T3}%{T-}"
+ramp-signal-2 = "%{T3}%{T-}"
+ramp-signal-3 = "%{T3}%{T-}"
+ramp-signal-4 = "%{T3}%{T-}"
+
+###########################################################
+
+[module/pulseaudio]
+type = internal/pulseaudio
+use-ui-max = true
+interval = 5
+
+label-volume = %percentage%%
+label-muted = ""
+
+format-volume = <ramp-volume> <label-volume>
+format-volume-padding = 1
+format-volume-underline = ${colors.modules-pulseaudio}
+format-volume-foreground = ${colors.primary}
+
+format-muted-padding = 1
+format-muted-underline = ${colors.modules-pulseaudio}
+format-muted-foreground = ${colors.primary}
+
+ramp-volume-0 = ""
+ramp-volume-1 = ""
+ramp-volume-2 = ""
+
+###########################################################
+
+[module/xbacklight]
+type = internal/xbacklight
+label = " %percentage%%"
+
+format = <label>
+format-padding = 1
+format-underline = ${colors.modules-xbacklight}
+format-foreground = ${colors.primary}
+
+###########################################################
+
+[module/battery]
+type = internal/battery
+
+label-charging = " %percentage%%"
+label-discharging = "%percentage%%"
+label-full = " %percentage%%"
+
+format-charging = <label-charging>
+format-charging-padding = 1
+format-charging-underline = ${colors.modules-battery}
+format-charging-foreground = ${colors.primary}
+
+format-discharging = <ramp-capacity> <label-discharging>
+format-discharging-padding = 1
+format-discharging-underline = ${colors.modules-battery}
+format-discharging-foreground = ${colors.primary}
+
+format-full = <label-full>
+format-full-padding = 1
+format-full-underline = ${colors.modules-battery}
+format-full-foreground = ${colors.primary}
+
+ramp-capacity-0 = "%{T4}%{T-}"
+ramp-capacity-1 = "%{T4}%{T-}" 
+ramp-capacity-2 = "%{T4}%{T-}"   
+ramp-capacity-3 = "%{T4}%{T-}" 
+ramp-capacity-4 = "%{T4}%{T-}" 
+
+###########################################################
+
+[module/temperature]
+type = internal/temperature
+thermal-zone = 0
+warn-temperature = 60
+
+label = "%temperature-c%"
+label-warn = "%temperature-c%"
+
+ramp-0 = ""
+ramp-1 = ""
+ramp-2 = ""
+
+format = <ramp> <label>
+format-padding = 1
+format-underline = ${colors.modules-temperature}
+format-foreground = ${colors.primary}
+
+format-warn = <ramp> <label-warn>
+format-warn-underline = ${colors.modules-temperature}
+format-warn-foreground = ${colors.primary}
+
+###########################################################
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+label = %percentage:2%% 
+
+format-padding = 1
+format-prefix = " "
+
+format-underline = ${colors.modules-cpu}
+format-foreground = ${colors.primary}
+
+###########################################################
+
+[module/memory]
+type = internal/memory
+interval = 2
+label = "%percentage_used%%"
+
+format-padding = 1
+format-prefix = " "
+
+format-underline = ${colors.modules-memory}
+format-foreground = ${colors.primary}
+
+###########################################################
+
+[module/powermenu]
+type = custom/menu
+
+label-open = "%{T3}%{T-}"
+label-close = cancel
+label-separator = |
+
+format-padding = 1
+format-spacing = 1
+
+format-underline = ${colors.modules-powermenu}
+format-foreground = ${colors.primary}
+
+menu-0-0 = power off
+menu-0-0-exec = poweroff
+
+menu-0-1 = reboot 
+menu-0-1-exec = sudo reboot
+ 
+menu-0-2 = log out 
+menu-0-2-exec = i3-msg exit
+
+###########################################################
+
+[module/right-date]
+type = custom/text
+content = "%{T6} %{T-}"
+
+content-background = ${colors.background}
+content-foreground = ${colors.modules-date}
+
+###########################################################
+
+[module/right-wlan]
+type = custom/text
+content = "%{T6} %{T-}"
+
+content-background = ${colors.background}
+content-foreground = ${colors.modules-wlan}
+
+###########################################################
+
+[module/right-pulseaudio]
+type = custom/text
+content = "%{T6} %{T-}"
+
+content-background = ${colors.background}
+content-foreground = ${colors.modules-pulseaudio}
+
+###########################################################
+
+[module/right-xbacklight]
+type = custom/text
+content = "%{T6} %{T-}"
+
+content-background = ${colors.background}
+content-foreground = ${colors.modules-xbacklight}
+
+###########################################################
+
+[module/right-battery]
+type = custom/text
+content = "%{T6} %{T-}"
+
+content-background = ${colors.background}
+content-foreground = ${colors.modules-battery}
+
+###########################################################
+
+[module/right-temperature]
+type = custom/text
+content = "%{T6} %{T-}"
+
+content-background = ${colors.background}
+content-foreground = ${colors.modules-temperature}
+
+###########################################################
+
+[module/right-cpu]
+type = custom/text
+content = "%{T6} %{T-}"
+
+content-background = ${colors.background}
+content-foreground = ${colors.modules-cpu}
+
+###########################################################
+
+[module/right-memory]
+type = custom/text
+content = "%{T6} %{T-}"
+
+content-background = ${colors.background}
+content-foreground = ${colors.modules-memory}
+
+###########################################################
+
+[module/right-powermenu]
+type = custom/text
+content = "%{T6} %{T-}"
+
+content-background = ${colors.background}
+content-foreground = ${colors.modules-powermenu}
+
+###########################################################
+
+[module/left-date]
+type = custom/text
+content = "%{T6}%{T-}"
+
+content-background = ${colors.background}
+content-foreground = ${colors.modules-date}
+
+###########################################################
+
+[module/left-wlan]
+type = custom/text
+content = "%{T6}%{T-}"
+
+content-background = ${colors.background}
+content-foreground = ${colors.modules-wlan}
+
+###########################################################
+
+[module/left-pulseaudio]
+type = custom/text
+content = "%{T6}%{T-}"
+
+content-background = ${colors.background}
+content-foreground = ${colors.modules-pulseaudio}
+
+###########################################################
+
+[module/left-xbacklight]
+type = custom/text
+content = "%{T6}%{T-}"
+
+content-background = ${colors.background}
+content-foreground = ${colors.modules-xbacklight}
+
+###########################################################
+
+[module/left-battery]
+type = custom/text
+content = "%{T6}%{T-}"
+
+content-background = ${colors.background}
+content-foreground = ${colors.modules-battery}
+
+###########################################################
+
+[module/left-temperature]
+type = custom/text
+content = "%{T6}%{T-}"
+
+content-background = ${colors.background}
+content-foreground = ${colors.modules-temperature}
+
+###########################################################
+
+[module/left-cpu]
+type = custom/text
+content = "%{T6}%{T-}"
+
+content-background = ${colors.background}
+content-foreground = ${colors.modules-cpu}
+
+###########################################################
+
+[module/left-memory]
+type = custom/text
+content = "%{T6}%{T-}"
+
+content-background = ${colors.background}
+content-foreground = ${colors.modules-memory}
+
+###########################################################
+
+[module/left-powermenu]
+type = custom/text
+content = "%{T6}%{T-}"
+
+content-background = ${colors.background}
+content-foreground = ${colors.modules-powermenu}
+
+###########################################################
+##Inactive modules#########################################
+###########################################################
+
+[module/pacman-updates]
+type = custom/script
+interval = 600
+exec = checkupdates | wc -l
+label =  %output%
+
+format-padding = 0
+format-foreground = ${colors.primary}
+format-background = ${colors.modules-pacman-updates}
+
+###########################################################
+
+[module/spotify]
+type = custom/script
+tail = true
+exec = ~/.config/polybar/scripts/scroll_spotify_status.sh
+
+format-prefix = " "
+format = <label>
+format-foreground = ${colors.primary}
+format-background = ${colors.modules-spotify}
+
+###########################################################
+
+[module/spotify-prev]
+type = custom/script
+exec = echo "  "
+click-left = playerctl previous spotify
+
+format = <label>
+format-foreground = ${colors.primary}
+format-background = ${colors.modules-spotify}
+
+###########################################################
+
+[module/spotify-play-pause]
+type = custom/script
+exec = echo " "
+click-left = playerctl play-pause spotify
+
+format = <label>
+format-foreground = ${colors.primary}
+format-background = ${colors.modules-spotify}
+
+###########################################################
+
+[module/spotify-next]
+type = custom/script
+exec = echo " "
+click-left = playerctl next spotify
+
+format = <label>
+format-foreground = ${colors.primary}
+format-background = ${colors.modules-spotify}
+
+###########################################################
+###########################################################
+###########################################################
+
+

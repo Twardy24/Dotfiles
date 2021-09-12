@@ -1,0 +1,341 @@
+###########################################################
+##Depencies################################################
+###########################################################
+
+# bspwm
+# polybar (AUR)
+# lm_sensors
+
+# ttf-fantasque-sans-mono (AUR)
+# ttf-font-awesome
+# nerd-fonts-ubuntu-mono (AUR)
+# nerd-fonts-iosevka (AUR)
+# noto-fonts-cjk (AUR)
+
+###########################################################
+##Settings#################################################
+###########################################################
+
+[colors]
+background = #B3212129
+primary = #B3212129
+
+modules-powermenu = #be616b
+modules-date = #a3bd8d
+modules-pulseaudio = #80a1c0
+modules-xbacklight = #b38ead
+modules-battery = #8fbbba
+
+modules = #eacb8b
+modules-cpu = #be616b
+modules-memory = #a3bd8d
+modules-temperature = #b38ead
+modules-wlan = #8fbbba
+
+[bar/example]
+width = 100%
+height = 25
+radius = 0.0
+fixed-center = true
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 1
+line-color = ${colors.modules}
+
+border-left-size = 6
+border-right-size = 6 
+border-top-size = 6
+border-bottom-size = 6
+border-color = ${colors.background}
+
+padding-left = 0
+padding-right = 0
+
+module-margin-left = 0
+module-margin-right = 1
+
+###########################################################
+##Tray#####################################################
+###########################################################
+
+tray-position = right
+tray-padding = 2
+tray-spacing = 1
+tray-background = ${colors.background}
+
+###########################################################
+##Fonts####################################################
+###########################################################
+
+font-0 = "Fantasque Sans Mono:pixelsize=11:antialias=true;1"
+font-1 = "Font Awesome 5 Free:pixselsize=9;1"
+font-2 = "Font Awesome 5 Free Solid:pixelsize=9;1"
+font-3 = "Font Awesome 5 Brands:pixelsize=9;1"
+font-4 = "UbuntuMono Nerd Font:size=13.5:antialias=true;4"
+font-5 = "Iosevka Nerd Font:style=Medium:size=12;3"
+font-6 = Noto Sans CJK JP:size=10:antialias=true;0
+
+###########################################################
+##Modules##################################################
+###########################################################
+
+modules-left = powermenu date pulseaudio xbacklight battery
+modules-center = bspwm
+modules-right = cpu memory temperature wlan
+
+###########################################################
+##Modules left#############################################
+###########################################################
+
+[module/bspwm]
+type = internal/bspwm
+
+pin-workspaces = true
+inline-mode = false
+
+enable-click = true
+enable-scroll = true
+reverse-scroll = false
+
+fuzzy-match = false
+
+#ws-icon-0 = I;%{T3}%{T-}
+#ws-icon-1 = II;%{T3}%{T-}
+#ws-icon-2 = III;%{T4}%{T-}
+#ws-icon-3 = IV;%{T4}%{T-}
+#ws-icon-4 = V;%{T4}%{T-}
+#ws-icon-5 = VI;6
+#ws-icon-6 = VII;7
+#ws-icon-7 = VIII;8 
+#ws-icon-8 = IX;9 
+#ws-icon-9 = X;10
+
+ws-icon-0 = I;一
+ws-icon-1 = II;二
+ws-icon-2 = III;三
+ws-icon-3 = IV;四
+ws-icon-4 = V;五
+ws-icon-5 = VI;六
+ws-icon-6 = VII;七
+ws-icon-7 = VIII;八
+ws-icon-8 = IX;九
+ws-icon-9 = X;十
+
+format = <label-state> <label-mode>
+label-monitor = %name%
+
+label-focused-padding = 1
+label-focused = %icon%
+label-focused-foreground = ${colors.primary}
+label-focused-background = ${colors.modules}
+
+label-occupied = %icon%
+label-occupied-padding = 1
+label-occupied-foreground  = ${colors.modules}
+label-occupied-underline = ${colors.modules}
+
+label-empty = %icon%
+label-empty-padding = 1
+label-empty-foreground = ${colors.modules}
+
+label-separator = " "
+label-separator-padding = 0
+label-separator-foreground = ${colors.secondary}
+
+###########################################################
+##Modules right############################################
+###########################################################
+
+[module/date]
+type = internal/date
+interval = 1
+label = "%{T3}%{T-}%date% %time%"
+
+time = "%H:%M:%S"
+time-alt = "%H:%M:%S"
+date = ""
+date-alt = " %d.%m.%Y"
+
+format-padding = 1
+format-background = ${colors.primary}
+format-foreground = ${colors.modules-date}
+format-underline = ${colors.modules-date}
+
+###########################################################
+
+[module/wlan]
+type = internal/network
+interface = wlp3s0
+interval = 3.0
+label-connected = "%local_ip%"
+
+format-connected = <ramp-signal> <label-connected>
+format-connected-padding = 1
+format-connected-background = ${colors.primary}
+format-connected-foreground = ${colors.modules-wlan}
+format-connected-underline = ${colors.modules-wlan}
+
+format-disconnected = "%{T3} %{T-} disconnected"
+format-disconnected-padding = 1
+format-disconnected-background = ${colors.primary}
+format-disconnected-foreground = ${colors.modules-wlan}
+format-disconnected-underline = ${colors.modules-wlan}
+
+ramp-signal-0 = "%{T3}%{T-}"
+ramp-signal-1 = "%{T3}%{T-}"
+ramp-signal-2 = "%{T3}%{T-}"
+ramp-signal-3 = "%{T3}%{T-}"
+ramp-signal-4 = "%{T3}%{T-}"
+
+###########################################################
+
+[module/pulseaudio]
+type = internal/pulseaudio
+use-ui-max = true
+interval = 5
+
+label-volume = %percentage%%
+label-muted = ""
+
+format-volume = <ramp-volume> <label-volume>
+format-volume-padding = 1
+format-volume-background = ${colors.primary}
+format-volume-foreground = ${colors.modules-pulseaudio}
+format-volume-underline = ${colors.modules-pulseaudio}
+
+format-muted-padding = 1
+format-muted-background = ${colors.primary}
+format-muted-foreground = ${colors.modules-pulseaudio}
+format-muted-underline = ${colors.modules-pulseaudio}
+
+ramp-volume-0 = ""
+ramp-volume-1 = ""
+ramp-volume-2 = ""
+
+###########################################################
+
+[module/xbacklight]
+type = internal/xbacklight
+label = " %percentage%%"
+
+format = <label>
+format-padding = 1 
+format-background = ${colors.primary}
+format-foreground = ${colors.modules-xbacklight}
+format-underline = ${colors.modules-xbacklight}
+
+###########################################################
+
+[module/battery]
+type = internal/battery
+
+label-charging = " %percentage%%"
+label-discharging = "%percentage%%"
+label-full = " %percentage%%"
+
+format-charging = <label-charging>
+format-charging-padding = 1
+format-charging-background = ${colors.primary}
+format-charging-foreground = ${colors.modules-battery}
+format-charging-underline = ${colors.modules-battery}
+
+format-discharging = <ramp-capacity> <label-discharging>
+format-discharging-padding = 1
+format-discharging-background = ${colors.primary}
+format-discharging-foreground = ${colors.modules-battery}
+format-discharging-underline = ${colors.modules-battery}
+
+format-full = <label-full>
+format-full-padding = 1
+format-full-background = ${colors.primary}
+format-full-foreground = ${colors.modules-battery}
+format-full-underline = ${colors.modules-battery}
+
+ramp-capacity-0 = "%{T4}%{T-}"
+ramp-capacity-1 = "%{T4}%{T-}" 
+ramp-capacity-2 = "%{T4}%{T-}"   
+ramp-capacity-3 = "%{T4}%{T-}" 
+ramp-capacity-4 = "%{T4}%{T-}" 
+
+###########################################################
+
+[module/temperature]
+type = internal/temperature
+thermal-zone = 0
+warn-temperature = 60
+
+label = "%temperature-c%"
+label-warn = "%temperature-c%"
+
+ramp-0 = ""
+ramp-1 = ""
+ramp-2 = ""
+
+format = <ramp> <label>
+format-padding = 1
+format-background = ${colors.primary}
+format-foreground = ${colors.modules-temperature}
+format-underline = ${colors.modules-temperature}
+
+format-warn = <ramp> <label-warn>
+format-warn-background = ${colors.primary}
+format-warn-foreground = ${colors.modules-temperature}
+
+###########################################################
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+label = %percentage:2%% 
+
+format-padding = 1
+format-prefix = " "
+
+format-background = ${colors.primary}
+format-foreground = ${colors.modules-cpu}
+format-underline = ${colors.modules-cpu}
+
+###########################################################
+
+[module/memory]
+type = internal/memory
+interval = 2
+label = "%percentage_used%%"
+
+format-padding = 1
+format-prefix = " "
+
+format-background = ${colors.primary}
+format-foreground = ${colors.modules-memory}
+format-underline = ${colors.modules-memory}
+
+###########################################################
+
+[module/powermenu]
+type = custom/menu
+
+label-open = "%{T3}%{T-}"
+label-close = cancel
+label-separator = |
+
+format-padding = 1
+format-spacing = 1
+
+format-background = ${colors.primary}
+format-foreground = ${colors.modules-powermenu}
+format-underline = ${colors.modules-powermenu}
+
+menu-0-0 = power off
+menu-0-0-exec = poweroff
+
+menu-0-1 = reboot 
+menu-0-1-exec = sudo reboot
+ 
+menu-0-2 = log out 
+menu-0-2-exec = i3-msg exit
+
+###########################################################
+###########################################################
+###########################################################
